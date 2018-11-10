@@ -1,0 +1,191 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% neměnit
+%
+\documentclass[a4paper,10pt,twocolumn]{article}
+\usepackage{lmodern}
+\usepackage[czech]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[top=0.5cm,bottom=2cm,left=1cm,right=1cm]{geometry}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% dopište jméno článku,který aplikujete, svá jména, školní(!!!) emaily (emaiy jakol milasek328@seznam.cz apod. prosím ne...)
+%
+\title{Technická zpráva k semestrální práci z předmětu MI-ROZ \\ <jméno článku>}
+\date{\today}
+\author{Me, Myself \& I \\ me@fit.cvut.cz, myself@fel.cvut.cz, I@utia.cas.cz}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%   TEXT   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+\begin{document}
+\maketitle
+\begin{abstract}
+Abstrakt. Znáte z BP. V několika větách stručně shrňte o čem je vaše práce. Tedy to, co jste Vy dělali. Myšlenku implementované části, její princip. V čem je ta myšlenka dobrá. Tady se chlubíte co všechno vaše práce obsahuje. Mělo by to být ale krátké a stručné (neb samochvála přece smrdí). 
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%   UVOD   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Úvod}
+
+Zde popisujete celou úlohu - segmentaci textur. Tedy myšlenku a účel celého programu (úlohy) s tím, že nejvíce rozvádíte \textbf {sekci, které se věnujete} (případně sekce pokud chcete upravit více než jednu povinnou). Tady je potřeba uvést citaci článku\cite{Zhenhua_LBP_2010}, který aplikujete!
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%   SEGMENTER   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Segmenter}
+
+Z následujících podkapitol \emph{rozveďte tu, které se věnujete}. Ostatní kapitoly nenechávejte prázdné, stručně zde například shrňte jaký mají vliv na celkový výsledek. V této kapitole (podkapitolách) musí být uvedeno \textbf{vše} co jste udělali, vylepšili, změnili. Co zde není okomentováno a zdokumentováno jako by jste neudělali!
+
+\textsc {Příklad:}  Váš segmentační algoritmus je naprosto skvělý, ale máte nedostačující vstupní data (příznaky), proto nedosahujete až tak skvělých výsledků jaké byly uvedeny v článku, kde se používaly speciální příznaky. Uveďte to proto do sekce Příznaky, ideálně se zmínkou, jak by to optimálně mělo být. 
+
+\begin{figure}[H]
+       \begin{center}
+              \includegraphics[width=6cm]{lbp1}
+       \end{center}
+       \caption{Schéma tři konfigurací LBP příznaků. Zleva doprava: $LBP_8^1$ - osmibodový příznak, vzdálenost 1, $LBP_12^2$ - šestnáctibodový příznak, vzdálenost 2, $LBP_8^2$ - osmibodový příznak, vzdálenost 2}
+       \label{fig3}
+\end{figure}
+
+Popis metody v podsekci vhodně doplňte \emph{alespoň jedním obrázkem}. Obrázek by neměl obsahovat nepochopitelné (viz. Obrázek \ref{fig3}) nebo nevysvětlené (viz. Obrázek \ref{fig2}) popisky. Text přímo u obrázku je minimální, ale vysvětlující (co je na obrázku). Výklad k obrázku (co to znamená) je v textu kde je obrázek odkazován.
+
+%==================================    příznaky   ==================================================
+
+\subsection{Příznaky}
+
+Jaké příznaky segmenter používá a jaký je jejich význam? Rozveďte podrobně.
+
+\begin{figure}[H]
+      \begin{center}
+            \includegraphics[width=6cm]{lbp3}
+      \end{center}
+      \caption{Základní schéma výpočtu LBP příznaků a sestavení histogramu pro části obrazu.}
+      \label{fig2}
+\end{figure}
+
+%==================================    transformace   ================================================
+
+%\subsection{Transformace}
+%Opět - rozepište pokud se tomu věnujete.
+
+%==================================    segmentace    ================================================
+
+\subsection{Segmentace}
+Na základě čeho funguje segmentace? Jak probíhá segmentace příznaků? Opět - rozepište pokud se tomu věnujete, krátce popište vliv na výsledek.
+
+%==================================    postprocessing   ===============================================
+
+\subsection{Postprocessing}
+Opět, pokud jste se tomu věnovali rozepsat. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%   VÝSLEDKY   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Výsledky}
+
+Uveďte výsledky jak kvantitativní (CS - correct segmentation), tak kvalitativní (příklady segmentace). Zde by měly být alespoň \emph{tři dvojice} obrázků (zadání + výsledná segmentace). Vyberte takové výsledky, které charakterizují vaší práci a \emph{dostatečně je okomentujte}. Pokud se vaše práce chová nějak nestandardně, je vhodné (a nutné) to uvést, ideálně na příkladu výsledné segmentace. Korektně zdůvodněné (tj. nikoli zdůvodnění ve stylu: Dělal jsem PARy a neměl jsem čas, nepochopil jsem to a už se blíží Vánoce, tu část jsem vynechala myslel že to bude fungovat, je to asi blbě naprogramované, nejde to zkompilovat ale myšlenkově je to správně\footnote{Ano, veškeré takové výmluvy se objevily. :-)}, ...) zvláštní, či nevalidní chování \emph{může} být v pořádku. Zvláštní, či nevalidní chování kterému nerozumíte je \textbf{zásadní} problém. 
+
+\textsc{Pozor} - integrální součástí semestrálky je především pochopení toho, co a proč se při segmentaci děje a může dít. Rozumné zhodnocení výsledků je \textbf{nedílnou} součástí výsledků a celé semestrální práce! Právě zde můžete okomentovat zdánlivě nepříliš kvalitní výsledky segmentace. Uvědomte si, že segmentace textur je velmi obtížná úloha. Nezapomínejte, že aplikujete mnoho rozličných metod, kde každá má jiný očekávaný kvalitativní a kvantitativní výstup. Tato práce \emph{není} soutěží o číslech a o maximální hodnotě CS (byť její vysoká hodnota naznačuje kvalitní implementaci metody). Nelze porovnávat numerické hodnoty mezi jednotlivými pracemi. Jde především o to, aby jste metodu a úlohu obecně \emph{pochopili} a ne jen ji tupě nadatlili a netušili, co se v ní děje. Například fungující kód s LBP příznaky, jehož výsledek nedokážete interpretovat (tj. říct proč je takový, jaký je) je k ničemu a je \textbf{nesplněnou prací}. 
+
+Vzhledem k tomu, že implementujete povinně pouze část výpočtu příznaků, měla by vaše implementace příznaků \emph{vylepšit} výsledky oproti předpřipravení verzi, která používá jako příznaky jen RGB hodnoty, nikolik je snížit!
+
+\begin{figure}[H]
+      \begin{center}
+            \includegraphics[width=3cm]{index.png}
+            \includegraphics[width=3cm]{index(3).png}
+            \includegraphics[width=3cm]{index(6).png}
+
+            \vspace{1mm}	
+
+            \includegraphics[width=3cm]{index(2).png}
+            \includegraphics[width=3cm]{index(5).png}
+            \includegraphics[width=3cm]{index(8).png}
+      \end{center}
+      \caption{Příklady výsledku segmentace; Horní řádek: Vstupní data (obrázek s několika segmenty); Dolní řádek: Výsledná segmentace; První sloupec: ukázka nesprávně segmentované textury; Druhý sloupec: nesprávně klasifikovaní hranice mezi oblastmi; Třetí sloupec: Ze záhadných důvodů divně vypadající segmentace (oblé tvary)}
+\label{fig1}
+\end{figure}
+
+\textsc{Pozor} -  to, že nejste hodnocení na základě maximalizace hodnoty CS rozhodně neznamená, že i hodnota 0 (tj. v průměru jste neklasifikovali správě vůbec nic), nebo hodnota nižší než etalon je naprosto v pořádku. Nikoli\footnote{Ano, i tak si zadání několik lidí vykládalo... Ne, není to vtip.}. Implementované část kódu musí být validní. Zkuste si nejdříve odevzdat výsledky ze segmenteru bez jakýchkoli úprav (tj. primitivní K-Means postavené na shlukování barev). To je vaše referenční hodnota kterou máte \emph{zvyšovat}. %Z praxe víme, že lze zvednout celkem podstatně a to ve všech druzích prací.\emph{ 
+
+Nezapomeňte obrázky výsledků (Obr. \ref{fig1}) popsat v textu i stručně v popisku. Proč jsou oblasti segmentovány správě? Proč špatně? Proč se výsledek v druhém sloupci na Obr. \ref{fig1} chová tak divně? (Student 'plácal' segmenty přes sebe a blbě si hlídal hranice vně a uvnitř). Proč nemají oblasti v třetím sloupci řádku Obr. \ref{fig1} ostré hrany a jsou takové puzzleovité? (Zkuste si odpovědět sami, odpověď je někde v tomto textu). 
+
+%Vejde-li se to do zprávy, uveďte i hodnoty CS vaší implementace. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%   SHRNUTÍ   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\section{Shrnutí}
+
+Shrňte co se vám povedlo, zmiňte neúspěchy a (ideálně) validně zdůvodněte proč k nim došlo. Můžete okomentovat i původní článek a (jen zlehka) jej porovnat s vašimi výsledky. Klidně i napište, co se vám na semestrální práci líbilo a taky co byste raději měli jinak. Uvítáme jakékoli nápady. Pokud jste čerpali ještě z nějaké literatury (např. použiti matematických knihoven v práci), tady je uveďte a ocitujte.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%   REFERENCE   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\bibliographystyle{unsrt}
+\bibliography{roz}
+
+\textbf{ROZSAH PRÁCE JE MAXIMÁLNĚ DVĚ A4!}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%   END OF TEXT   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%   INFO   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% celou tuto sekci ve vaší práci vynechejte
+%
+\vspace{-2mm}
+\begin{center}
+\line(1,0){250}
+\end{center}
+\vspace{-2mm}
+
+\textbf{V BODECH:}
+
+\begin{itemize}
+
+   \item \emph{Nutné podmínky} pro odevzdání:
+     \begin{itemize}
+	 \item Odevzdání výsledků na Mosaic.
+	 \item Odevzdání této zprávy (vámi přepsané)  + odevzdání vašich spustitelných kódů v C/C++ včas\footnote{Týden  před posledním cvičením, 23:59, mailem.}.
+%	 \item Odevzdání vašich spustitelných kódů v C/C++ (viz výše).
+	 \item Prezentace vaší práce na poslední přednášce (+ prezentace na poseldním cvičení kde mužete ústně dovysvětlit případné problémy).
+     \end{itemize}
+
+
+   \item Obecně:
+     \begin{itemize}
+	\item Převádění barevných obrázku do černobílé je dobrovolná lobotomie segmentačního procesu (vyhazujete důležité  informace). Pokud tak článek pracuje, je to pravděpodobně z důvodu výpočetního výkonu (podívejte se na rok publikace). Pusťte proces například pro každé spektrum zvlášť. 
+	 \item V načítaném xml souboru máte poměrně dost informací (počet oblastí například). Pokud je metoda vyžaduje, použijte je. Princip by měl být jasný. 
+	 \item Benchmark je dostupný na mosaic.utia.cas.cz. Zde (pro zajímavost) najdete i aktuální state-of-the-art metody výzkumníků z celého světa. Uvědomte si, že segmentace textur je \emph{náročná} úloha. 
+	\item Segmenter spolu s binárkami a infem k němu najdete na mosaic.utia.cas.cz/fit2015\_zimni.html.
+	\item Články hledejte pomocí google scholar, nebo dialog.cvut.cz (který by jste ale měli už znát). Věnujte pozornosti i článkům, který váš článek cituje. Používejte Google. :-)
+     \end{itemize}
+
+   \item Ostatní:
+     \begin{itemize}
+  	\item Kontaktní maily: richtrad@fit.cvut.cz (semestrálka, hodnocení, odevzdání...), xaos@utia.cas.cz (problémy s kompilací segmenteru).
+  	\item Segmentace netrvá sekundy! Měli by jste být schopni odhadnout jak dlouho proces poběží. Když se na práci vrhnete pozdě, riskujete, že dva dny před odevzdáním zjistíte, že jedna segmentace trvá 5 hodin a nestíháte si práci u sebe ani spustit, natož odladit. Tomuto se dá vyhnout tím (krom toho že začnete včas), že obrázek podškálujete z 512x512 např. na 128x128. Pokud toto provedete, pak:
+          \begin{itemize}
+		 \item Podškálování musí být plně paremetrizovatelné (klidně si přidejte parametr do xml)!
+		 \item Alespoň jeden výsledek vytvořte v původním rozlišení (je-li to paměťově možné)!
+          \end{itemize}
+	\item Některé metody jsou paměťově náročné. Řešení je stejné jako výše. %pletí pro segmentační úlohy
+      \end{itemize}
+\end{itemize}
+
+\end{document}
