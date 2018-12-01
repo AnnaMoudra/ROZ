@@ -12,19 +12,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f777972c-8c1c-49cc-87e9-991e691a39d4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classes/Classifier.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classes/FeatureHandler.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classes/Image.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/classes/Person.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parse_files.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/train.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ROZ.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ROZ.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classes/DataHandler.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/classes/GaborHandler.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roz-TZ.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roz-TZ.tex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ALL_BUILD.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/build/ALL_BUILD.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/generate.stamp.depend" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/generate.stamp.depend" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/Release/miroz.exe" beforeDir="false" afterPath="$PROJECT_DIR$/build/Release/miroz.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/ZERO_CHECK.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/build/ZERO_CHECK.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/CL.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/CL.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/CL.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/CL.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/custombuild.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/custombuild.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/link.command.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/link.command.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/link.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/link.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/miroz.lastbuildstate" beforeDir="false" afterPath="$PROJECT_DIR$/build/miroz.dir/Release/miroz.tlog/miroz.lastbuildstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/miroz.dir/Release/train.obj" beforeDir="false" afterPath="$PROJECT_DIR$/build/miroz.dir/Release/train.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/miroz.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/build/miroz.vcxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/x64/Release/ALL_BUILD/ALL_BUILD.tlog/ALL_BUILD.lastbuildstate" beforeDir="false" afterPath="$PROJECT_DIR$/build/x64/Release/ALL_BUILD/ALL_BUILD.tlog/ALL_BUILD.lastbuildstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/x64/Release/ALL_BUILD/ALL_BUILD.tlog/custombuild.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/build/x64/Release/ALL_BUILD/ALL_BUILD.tlog/custombuild.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/x64/Release/ZERO_CHECK/ZERO_CHECK.tlog/ZERO_CHECK.lastbuildstate" beforeDir="false" afterPath="$PROJECT_DIR$/build/x64/Release/ZERO_CHECK/ZERO_CHECK.tlog/ZERO_CHECK.lastbuildstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/x64/Release/ZERO_CHECK/ZERO_CHECK.tlog/custombuild.read.1.tlog" beforeDir="false" afterPath="$PROJECT_DIR$/build/x64/Release/ZERO_CHECK/ZERO_CHECK.tlog/custombuild.read.1.tlog" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/FeatureHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/classes/FeatureHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/Image.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/classes/Image.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/train.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
@@ -125,58 +136,57 @@
     <session id="-8982624">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.14" value="1" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.open.time.6" value="2" />
+          <entry key="project.open.time.7" value="2" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="947" />
+          <entry key="cpp" value="10491" />
           <entry key="txt" value="60" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="60" />
-          <entry key="ObjectiveC" value="947" />
+          <entry key="ObjectiveC" value="10491" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="Local" value="1" />
           <entry key="Local (1)" value="8" />
-          <entry key="txt" value="1" />
+          <entry key="cpp" value="3" />
+          <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CMakeLists.txt" value="1" />
-          <entry key="Terminal Session" value="8" />
+          <entry key="CMakeLists.txt" value="2" />
+          <entry key="ObjectiveC" value="3" />
+          <entry key="Terminal Session" value="9" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/Image.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="471">
-              <caret line="65" selection-start-line="65" selection-end-line="65" />
+            <state relative-caret-position="2941">
+              <caret line="173" selection-start-line="173" selection-end-line="173" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#246#280#0" expanded="true" />
-                <element signature="e#374#1127#0" />
-                <element signature="e#1129#1159#0" />
+                <element signature="e#2223#3948#0" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -184,8 +194,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/FeatureHandler.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="1734">
+              <caret line="102" selection-start-line="102" selection-end-line="102" />
+              <folding>
+                <element signature="e#308#770#0" />
+                <element signature="e#802#1456#0" />
+                <element signature="e#1464#1679#0" />
+                <element signature="e#1685#2379#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/classes/GaborHandler.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="224" column="13" lean-forward="true" selection-start-line="224" selection-start-column="13" selection-end-line="224" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -193,10 +221,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
+            <state relative-caret-position="1513">
+              <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
               <folding>
-                <element signature="e#22#39#0" expanded="true" />
+                <element signature="e#116#150#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/DataHandler.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -215,6 +255,10 @@
     <findStrings>
       <find>C</find>
       <find>Vers</find>
+      <find>[</find>
+      <find>.at</find>
+      <find>ampli</find>
+      <find>files</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -226,13 +270,15 @@
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/parse_files.cpp" />
         <option value="$PROJECT_DIR$/classes/Person.cpp" />
-        <option value="$PROJECT_DIR$/classes/FeatureHandler.cpp" />
         <option value="$PROJECT_DIR$/../opencv4/build/OpenCVConfig.cmake" />
         <option value="$PROJECT_DIR$/cmake-build-debug/Makefile" />
         <option value="$PROJECT_DIR$/cmake-build-release/Makefile" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/classes/FeatureHandler.cpp" />
         <option value="$PROJECT_DIR$/train.cpp" />
         <option value="$PROJECT_DIR$/classes/Image.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/classes/DataHandler.cpp" />
+        <option value="$PROJECT_DIR$/classes/GaborHandler.cpp" />
       </list>
     </option>
   </component>
@@ -277,7 +323,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -317,18 +363,27 @@
       <workItem from="1542280589081" duration="1785000" />
       <workItem from="1542287464633" duration="5053000" />
       <workItem from="1542311123502" duration="5241000" />
-      <workItem from="1542318170362" duration="9428000" />
+      <workItem from="1542318170362" duration="10042000" />
+      <workItem from="1542554552663" duration="15246000" />
+      <workItem from="1542916503834" duration="1182000" />
+      <workItem from="1542976076631" duration="720000" />
+      <workItem from="1542978740332" duration="96000" />
+      <workItem from="1543000143770" duration="855000" />
+      <workItem from="1543273657286" duration="621000" />
+      <workItem from="1543346170563" duration="5738000" />
+      <workItem from="1543420953577" duration="34181000" />
+      <workItem from="1543584825804" duration="70000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44239000" />
+    <option name="totallyTimeSpent" value="103562000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09792086" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.101945005" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -347,7 +402,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.19919518" />
-      <window_info active="true" anchor="right" id="Terminal" order="4" visible="true" weight="0.4299128" />
+      <window_info active="true" anchor="right" id="Terminal" order="4" visible="true" weight="0.3568075" />
     </layout>
     <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2125" />
@@ -389,9 +444,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/miroz.cbp" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch..txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch..txt" />
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -412,46 +465,64 @@
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/miroz.dir/includes_CXX.rsp" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/miroz.dir/flags.make" />
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/CMakeFiles/miroz.dir/link.txt" />
-    <entry file="file://$PROJECT_DIR$/../../opencv-3.4.3/modules/core/include/opencv2/core/cvstd.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10999">
-          <caret line="647" selection-start-line="647" selection-end-line="647" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/classes/FeatureHandler.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/train.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="62" column="36" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
-          <folding>
-            <element signature="e#22#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../../opencv-3.4.3/modules/core/include/opencv2/core/cvstd.hpp" />
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="27" selection-start-line="5" selection-start-column="27" selection-end-line="5" selection-end-column="27" />
+        <state relative-caret-position="170">
+          <caret line="10" column="33" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="33" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/Image.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="65" selection-start-line="65" selection-end-line="65" />
+        <state relative-caret-position="2941">
+          <caret line="173" selection-start-line="173" selection-end-line="173" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#246#280#0" expanded="true" />
-            <element signature="e#374#1127#0" />
-            <element signature="e#1129#1159#0" />
+            <element signature="e#2223#3948#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/FeatureHandler.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1734">
+          <caret line="102" selection-start-line="102" selection-end-line="102" />
+          <folding>
+            <element signature="e#308#770#0" />
+            <element signature="e#802#1456#0" />
+            <element signature="e#1464#1679#0" />
+            <element signature="e#1685#2379#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1513">
+          <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
+          <folding>
+            <element signature="e#116#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/DataHandler.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/GaborHandler.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="224" column="13" lean-forward="true" selection-start-line="224" selection-start-column="13" selection-end-line="224" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>

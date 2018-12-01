@@ -1,0 +1,4 @@
+ToolSet: 15.0@C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools
+Options: msvc.arch=amd64
+
+Options:-DOpenCV_DIR=C:/Users/Anna/Documents/opencv-3.4.3/build

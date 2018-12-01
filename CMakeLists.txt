@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.3)
 project(miroz)
 
-set(OpenCV_DIR C:/Users/Anna/Documents/opencv-3.4.3/build)
+set(OpenCV_DIR C:/Users/Anna/Documents/opencv3.4.3/build)
 #set(OPENCV_EXTRA_MODULES_PATH C:/Users/Anna/Documents/opencv_contrib-3.4.3/modules)
 set(OPENCV_ENABLE_NONFREE 1)
 set(OpenCV_VERSION 3)
