@@ -32,7 +32,6 @@ public:
     GaborHandler(){}
 
 
-
     void clear(){
         this->trainSet.clear();
         Ptr<SVM> svm = SVM::create();
@@ -57,12 +56,139 @@ public:
         cout<<"preparation done"<<endl;
     }
 
+    int hammingDistance(int x, int y) {
+        int z  = x ^ y;
+        int r = 0;
+        for (; z > 0; z >>= 1) {
+            r += z & 1;
+        }
+        return r;
+    }
+
+    int fitHD(Image * a){
+        //cout<<"Fitting image HD"<<endl;
+        vector<int> BV_X = a->gaborFeatures;
+        unsigned long long best = 0;
+        int win = -1;
+
+        for(auto person: trainSet){
+            for(int i = 0; i < person->features.size(); i++){
+                unsigned long long HM_D = 0;
+                for(int k = 0; k < person->features.at(i).size(); k++){
+                    if(BV_X.size() <= k){
+                        cout<<"BV_X is too short"<<endl;
+                    }
+                    else{
+                        //todo hamming distance
+                        unsigned long ixor = this->hammingDistance(BV_X.at(k), person->features.at(i).at(k));
+                        HM_D += ixor;
+                    }
+                }
+
+                HM_D = HM_D / person->features.at(i).size();
+                if(best == 0 || HM_D < best){
+                    best = HM_D;
+                    win = person->c;
+                    cout<<"NEW BEST: "<<win<<endl;
+                }
+            }
+        }
+        cout<<"Class res: "<<win<<endl;
+        cout<<"HD best: "<<best<<endl;
+        if(win == a->classNo){
+            cout<<"CORRECT!"<<endl;
+            return 1;
+        }
+        else{
+            cout<<"WRONG CLASS! should be "<<a->classNo<<endl;
+            return 0;
+        }
+    }
+
+    int fitXOR(Image * a){
+        //cout<<"Fitting image HD"<<endl;
+        vector<int> BV_X = a->gaborFeatures;
+        long long best = 0;
+        int win = -1;
+
+        for(auto person: trainSet){
+            for(int i = 0; i < person->features.size(); i++){
+                long long X_D = 0;
+                for(int k = 0; k < person->features.at(i).size(); k++){
+                    if(BV_X.size() <= k){
+                        cout<<"BV_X is too short"<<endl;
+                    }
+                    else{
+                        long int ixor = BV_X.at(k) ^ person->features.at(i).at(k);
+                        X_D += ixor;
+                    }
+                }
+
+                X_D = X_D / person->features.at(i).size();
+                if(best == 0 || X_D < best){
+                    best = X_D;
+                    win = person->c;
+                    cout<<"NEW BEST: "<<win<<endl;
+                }
+            }
+        }
+        cout<<"Class res: "<<win<<endl;
+        cout<<"XOR best: "<<best<<endl;
+        if(win == a->classNo){
+            cout<<"CORRECT!"<<endl;
+            return 1;
+        }
+        else{
+            cout<<"WRONG CLASS! should be "<<a->classNo<<endl;
+            return 0;
+        }
+    }
+
+
+    int fitED(Image * a){
+        //cout<<"Fitting image HD"<<endl;
+        vector<int> BV_X = a->gaborFeatures;
+        unsigned long long best = 0;
+        int win = -1;
+
+        for(auto person: trainSet){
+            //cout<<"New person ("<<person->c<<"), ft size: "<<person->features.size()<<endl;
+            for(int i = 0; i < person->features.size(); i++){
+                unsigned long long ED_D = 0;
+                for(int k = 0; k < person->features.at(i).size(); k++){
+                    if(BV_X.size() <= k){
+                        cout<<"BV_X is too short"<<endl;
+                    }
+                    else{
+                        unsigned long long ed =  pow(BV_X.at(k) - person->features.at(i).at(k),2);
+                        ED_D += ed;
+                        //cout<<"Final ED_D: "<<ED_D<<endl;
+                    }
+                }
+                if(best == 0 || ED_D < best){
+                    best = ED_D;
+                    win = person->c;
+                    cout<<"NEW BEST ED: "<<win<<endl;
+                }
+            }
+        }
+        cout<<"Class res: "<<win<<endl;
+        cout<<"ED best: "<<best<<endl;
+        if(win == a->classNo){
+            cout<<"CORRECT!"<<endl;
+            return 1;
+        }
+        else{
+            cout<<"WRONG CLASS! should be "<<a->classNo<<endl;
+            return 0;
+        }
+    }
+
      void trainAllVsAll(){
         cout<<"Training ALL classes at once"<<endl;
         this->AllVsAll(this->trainSet);
         cout<<"Training finished"<<endl;
     }
-
 
 
     int fit(Image * a){
@@ -222,7 +348,7 @@ private:
         this->svm->setType(SVM::C_SVC);
         this->svm->setKernel(SVM::RBF);
         //this->svm->setKernel(SVM::LINEAR);
-        this->svm->setTermCriteria(TermCriteria(TermCriteria::MAX_ITER, 100, 1e-6));
+        this->svm->setTermCriteria(TermCriteria(TermCriteria::MAX_ITER, 3000, 1e-6));
         try{
             cout<<"Training starts."<<endl;
             this->svm->train(trainingDataMat, ROW_SAMPLE, labelsMat);

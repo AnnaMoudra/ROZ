@@ -19,7 +19,6 @@ public:
     }
 
     void testSet(){
-        img1->EF_ORB();
         // Match features.
         std::vector<cv::DMatch> matches;
         matchFeatures(img1->descriptors, img2->descriptors, matches);
