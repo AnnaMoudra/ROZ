@@ -16,7 +16,6 @@ using namespace std;
 class Image{
 
 public:
-
     string filename;
     string name;
     bool out;
@@ -24,14 +23,14 @@ public:
     Mat original;
     Mat img;
     Mat area;
-    vector<Mat> channels;
-    vector<Mat> areas;
-    vector<KeyPoint> keypoints;
+    vector<Mat> channels; //BGR color channels
+    vector<Mat> areas; // areas used for gabor filtering feature selection
+    vector<KeyPoint> keypoints; //unused
     Mat descriptors;
     int classNo = -1;
-    //LAB histogram
+    //HSV histogram
     MatND histogram;
-    //selected gabor features
+    //selected gabor responses
     vector<Mat> gabor;
     //extracted gabor feature vector
     vector<int> gaborFeatures;
@@ -50,6 +49,12 @@ public:
         int channels = this->img.channels();
     }
 
+    void saveImage(string p){
+        string p2 = p+this->name+".jpg";
+        imwrite(p2, this->original);
+        return;
+    }
+
     /* Extract areas used for feature selection */
     void cropImg(){
         Rect myROI(250, 10, 100, 70);
@@ -63,11 +68,11 @@ public:
 
         for(int i = 1; i <= max; i++){
             if(i <= half ){
-                Rect rec(w_offset + ((i-1)*width), 0, width, height);
+                Rect rec(w_offset + ((i-1)*width), 50, width, height);
                 ars.push_back(rec);
             }
             else{
-                Rect rec2(w_offset + (((i-half)-1)*width), 0 + height, width, height);
+                Rect rec2(w_offset + (((i-half)-1)*width), 50 + height, width, height);
                 ars.push_back(rec2);
             }
         }
@@ -110,10 +115,6 @@ public:
         cvtColor(this->img, this->img, CV_BGR2Lab);
     }
 
-    void preProcessing(){
-        //TODO
-
-    }
 
     void extractChannels(Mat im){
         //cout<<im.channels()<<endl;
@@ -124,9 +125,8 @@ public:
 
     }
 
-    //todo EXTRACT ALL ??
+    //todo EXTRACT ALL
     void extractGaborFeatures(){
-        //8 rotations 1 setup = 8*1 response matrices
         vector<int> loc_energy;
         //vector<int> mean_amplitude;
         for(auto g : this->gabor){
@@ -134,12 +134,13 @@ public:
             // g is a response matrice - My image convolved with Gabor feature (gabor filter)
             // feature vector: Local Energy,Mean Amplitude,Phase Amlitude or Orientation whose local has maximumEnergy
 
-            //Local Energy = summing up the squared value of each matrix value from a response matrix
+            //Local Energy = summing up the squared value of each pixel value from a response matrix
             int sum = 0;
             for(int i=0; i<g.rows; i++) {
                 for (int j = 0; j < g.cols; j++) {
                     int pixel = g.at<uchar>(i, j);
-                    int pixel_p2 = pixel * pixel;
+                    //int pixel_p2 = pixel * pixel;
+                    //responses are already squared
                     sum += pixel;
                 }
             }
@@ -184,10 +185,15 @@ public:
         const float* ranges[] = { h_ranges, s_ranges };
         int channels[] = { 0, 1 };
 
+        //create and save HSV histogram
         calcHist( &hsv_base, 1, channels, Mat(), this->histogram, 2, histSize, ranges, true, false );
         normalize( this->histogram, this->histogram, 0, 1, NORM_MINMAX, -1, Mat() );
     }
 
+    /*
+     * Gabor kernels and filtering Gabor responses
+     * Saving already squared responses to vector
+     */
     void EF_GABOR(Mat im, bool channel) {
         Mat gaborOut, outAsFloat;
         Mat tmp, outImg;
@@ -200,11 +206,11 @@ public:
         else{
             tmp.copyTo(outImg);
         }
-        //pixel in range 0.-1.
+        //set pixel to range 0.-1.
         outImg.convertTo(outAsFloat, CV_32F);
 
         for (int j = 3; j <= 13; j += 2) {
-            for (int i = 0; i <= 120; i += 30) {
+            for (int i = 0; i <= 150; i += 30) {
                 Mat gaborImage, gaborImageSin, gaborImageCos;
                 //kernel size and sigma (in ~N(mi, sigma))
                 //scale for window 30x35
@@ -215,13 +221,15 @@ public:
                 //lambda - wavelength in sin fact of theta,
                 double lambda = j;
                 //gamma is the spatial aspect ratio.
-                double gamma = 0.25;
+                double gamma = 1;
 
                 //psi is the phase offset. (cos: psi=0, sin: psi=pi/2)
+                //real part
                 Mat gaborKernelCos = getGaborKernel(cv::Size(size, size), sigma, theta, lambda, gamma, 0);
+                //imaginary part
                 Mat gaborKernelSin = getGaborKernel(cv::Size(size, size), sigma, theta, lambda, gamma, M_PI/2.0);
 
-                //filter2D(outAsFloat, gaborOut, CV_32F, gaborKernel);
+
                 Mat sin_response, cos_response, temp, image_out;
                 filter2D(outAsFloat,sin_response, CV_32F, gaborKernelSin, cv::Point(-1,-1));
                 filter2D(outAsFloat,cos_response, CV_32F, gaborKernelCos, cv::Point(-1,-1));
@@ -237,8 +245,9 @@ public:
                 sin_response.convertTo(gaborImageSin, CV_8U, 255.0 / (xmax[0] - xmin[0]),-255 * xmin[0] / (xmax[0] - xmin[0]));
                 cos_response.convertTo(gaborImageCos, CV_8U, 255.0 / (xmax[0] - xmin[0]),-255 * xmin[0] / (xmax[0] - xmin[0]));
 
+
                 this->gabor.push_back(gaborImageSin);
-                this->gabor.push_back(gaborImageCos);
+                this->gabor.push_back(gaborImageCos); //real part
             }
         }
     }

@@ -18,6 +18,7 @@ public:
         this->img2 = b;
     }
 
+    //unused
     void testSet(){
         // Match features.
         std::vector<cv::DMatch> matches;

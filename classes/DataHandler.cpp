@@ -19,6 +19,7 @@ public:
         this->pathOut = o;
     }
 
+    /* Load database to memory */
     void load(){
         stringstream input("");
         int data_cnt = 0;
@@ -27,9 +28,12 @@ public:
             input << p;
             string a = replaceBackSlashes(input.str());
             Image * tmp = loadImage(a);
+            //get image info
             tmp->name = getImageName(a);
             tmp->out = getImageOut(a);
             tmp->left = getImageLeft(a);
+
+            //extract HSV histogram
             tmp->extractHistogram();
             tmp->cropImg();
             //this->saveAreaImage(tmp);
@@ -52,7 +56,7 @@ public:
         this->training_set.clear();
     }
 
-    //ratio 1: N-1, 1:1, 30:70
+    //extract tran and test sets to given ratio
     void extractSets(int ratio){
         if(ratio == 1){
             //prvni
@@ -67,6 +71,25 @@ public:
                 clss.push_back(img);
             }
             pickOneFromClass(clss);
+        }
+        else if(ratio == 0){
+            //prvni
+            int lastCls = 1;
+            vector<Image *> clss;
+            for(auto img: this->all_data){
+                if(lastCls < img->classNo){
+                    this->pickOneFromClass(clss);
+                    clss.clear();
+                    lastCls = img->classNo;
+                }
+                clss.push_back(img);
+            }
+            pickOneFromClass(clss);
+
+            vector<Image * > tmp(this->training_set);
+            this->training_set.clear();
+            this->training_set = this->testing_set;
+            this->testing_set = tmp;
         }
         else if(ratio == 50){
             //ratio 1:1
@@ -119,6 +142,13 @@ public:
         string p = a->name+"_area.jpg";
         cout<<"Saving to: "<<this->pathOut+p<<endl;
         imwrite(this->pathOut+p, a->area);
+        return;
+    }
+
+    void saveHistImage(Image * a){
+        string p = a->name+"_hist.jpg";
+        cout<<"Saving to: "<<this->pathOut+p<<endl;
+        imwrite(this->pathOut+p, a->histogram);
         return;
     }
 

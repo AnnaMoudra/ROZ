@@ -37,6 +37,7 @@ public:
         Ptr<SVM> svm = SVM::create();
     }
 
+    // labeling training data
     void fill(vector<Image *> data){
         int lastClass = -1;
         Person * p;
@@ -56,6 +57,7 @@ public:
         cout<<"preparation done"<<endl;
     }
 
+    //unused
     int hammingDistance(int x, int y) {
         int z  = x ^ y;
         int r = 0;
@@ -65,6 +67,7 @@ public:
         return r;
     }
 
+    //unused
     int fitHD(Image * a){
         //cout<<"Fitting image HD"<<endl;
         vector<int> BV_X = a->gaborFeatures;
@@ -105,6 +108,7 @@ public:
         }
     }
 
+    //unused
     int fitXOR(Image * a){
         //cout<<"Fitting image HD"<<endl;
         vector<int> BV_X = a->gaborFeatures;
@@ -145,6 +149,7 @@ public:
     }
 
 
+    /* fit image against train data using Euclidian distance*/
     int fitED(Image * a){
         //cout<<"Fitting image HD"<<endl;
         vector<int> BV_X = a->gaborFeatures;
@@ -184,13 +189,14 @@ public:
         }
     }
 
+    //unused
      void trainAllVsAll(){
         cout<<"Training ALL classes at once"<<endl;
         this->AllVsAll(this->trainSet);
         cout<<"Training finished"<<endl;
     }
 
-
+    //unused
     int fit(Image * a){
         cout<<"Fitting image"<<endl;
 
@@ -206,6 +212,7 @@ public:
         }
     }
 
+    //unused
     int trainOneVsOne(Image * a){
         int ok = 0;
 
@@ -261,7 +268,7 @@ private:
 
 
 
-
+    //unused
     void OneVsRest(Person * one, vector<Person *> rest){
         vector<vector<int>> all;
         vector<vector<int>> rest_f;
@@ -313,6 +320,7 @@ private:
         cout<<this->svm->isTrained()<<endl;
     }
 
+    //unused
     void AllVsAll(vector<Person *> dat){
         vector<vector<int>> all;
         vector<int> labels;
@@ -362,7 +370,7 @@ private:
     }
 
 
-
+    //unused
     pair<float, float> fitImage(Image * a){
         //assert(this->svm != NULL && this->svm->isTrained());
         if(!this->svm->isTrained()){

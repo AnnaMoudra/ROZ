@@ -1,9 +1,5 @@
-//50 by 50
-//n-1 by 1
-// 30-70
 // in build: cmake --build . --config Release
 // in SRC: .\build\Release\miroz.exe
-
 
 #include "classes/DataHandler.cpp"
 #include <opencv2/opencv.hpp>
@@ -12,7 +8,6 @@
 using namespace std;
 
 //return 0/1
-// 1 vs SH dummmy 56%
 int simpleHistogram(vector<Image *> data, Image * test){
     FeatureHandler * fh = new FeatureHandler();
     for(auto i: data){
@@ -36,6 +31,8 @@ int simpleHistogram(vector<Image *> data, Image * test){
 int main(){
     //string path = "./../test_5";
     string pathGabor = "./../gabor/";
+    string pathWrong = "./../wrong/";
+    string pathRight = "./../right/";
     string path = "./../iris_all";
 
     GaborHandler * gh = new GaborHandler();
@@ -44,15 +41,19 @@ int main(){
     cout<<"Loading files"<<endl;
     dh->load();
     cout<<"Loaded files:"<<dh->all_data.size()<<endl;
-    dh->saveGaborImages(dh->all_data.at(0));
+    dh->saveGaborImages(dh->all_data.at(53));
     dh->saveAreaImage(dh->all_data.at(3));
     dh->saveAreaImage(dh->all_data.at(53));
+    //dh->saveHistImage(dh->all_data.at(53));//->histogram, "./../gabor/hist.jpg")
 
-    int set = 50;  //ratio 1:n-1
+    int set = 0;  //ratio 1:n-1
     int cycles = 20;
     int k = 0;
     vector<double> results, res_xor, res_e, res_hist;
+    vector <Image *> wrong, right;
     while(k < cycles){
+        wrong.clear();
+        right.clear();
         dh->extractSets(set);
         cout<<"Training files:"<<dh->training_set.size()<<endl;
         cout<<"Testing files:"<<dh->testing_set.size()<<endl;
@@ -65,12 +66,18 @@ int main(){
         double percent_h, percent_xor, percent_e, percent_hist;
         int file_cnt = 1;
         int testing = dh->testing_set.size();
+
         for(auto t : dh->testing_set){
-            //fitting HD
-            //ok_svm += gh->fit(t);
             //ok_xor += gh->fitXOR(t);
             //ok_h += gh->fitHD(t);
-            ok_e += gh->fitED(t);
+            int l = gh->fitED(t);
+            if(l == 0){
+                wrong.push_back(t);
+            }
+            else{
+                right.push_back(t);
+            }
+            ok_e += l;
             cout<<"\nFILE: "<<file_cnt<<"/"<<testing<<endl;
             cout<<"\nCORRECT: "<<ok_e<<"/"<<testing<<endl;
             //cout<<"\nCORRECT: "<<ok_e<<"/"<<testing<<endl;
@@ -97,6 +104,18 @@ int main(){
         dh->clearSets();
         gh->clear();
         k++;
+    }
+
+    for(auto a: wrong){
+        a->saveImage(pathWrong);
+    }
+
+    for(auto a: right){
+        a->saveImage(pathRight);
+    }
+
+    for(auto a: dh->training_set){
+        a->saveImage("./../train/");
     }
 
     cout<<"RESULTS: "<<endl;
@@ -134,33 +153,10 @@ int main(){
     std = std/(double)cycles;
     std = sqrt(std);
 
-   // cout<<endl<<"AVERAGE (HD): "<<avg<<endl;
-
-    //cout<<endl<<"AVERAGE (XOR): "<<all_xor/(double) cycles<<endl;
     cout<<endl<<"SETS: "<<set<<endl;
     cout<<"AVERAGE (ED): "<<avg_e<<endl;
     cout<<"STD ED: "<<std<<endl<<endl;
     cout<<"AVERAGE (HIST): "<<avg_hist<<endl;
-
-/*
-    for(int l = 1; l < files; l++){
-        test = training_set.at(l);
-        vector <Image *> new_set (training_set);
-        new_set.erase(new_set.begin()+l);
-
-        ok += simpleHistogram(new_set, test);
-        cout<<"\nCORRECT: "<<ok<<"/"<<files<<endl;
-        double percent = (((double)ok/(double)files)*100);
-        cout<<"PERCENTAGE: "<<percent<<" %"<<endl;
-    }
-
-    cout<<"Histogram finished"<<endl;
-    cout<<"\nCORRECT: "<<ok<<"/"<<files<<endl;
-    double percent = (((double)ok/(double)files)*100);
-    cout<<"PERCENTAGE: "<<percent<<" %"<<endl;
-
-    */
-
 
     return 0;
 }
