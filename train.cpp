@@ -9,7 +9,7 @@ using namespace std;
 
 //return 0/1
 int simpleHistogram(vector<Image *> data, Image * test){
-    FeatureHandler * fh = new FeatureHandler();
+    HistogramHandler * fh = new HistogramHandler();
     for(auto i: data){
         fh->SetImgs(test, i);
         fh->histogramComparison();
@@ -41,10 +41,9 @@ int main(){
     cout<<"Loading files"<<endl;
     dh->load();
     cout<<"Loaded files:"<<dh->all_data.size()<<endl;
-    dh->saveGaborImages(dh->all_data.at(53));
-    dh->saveAreaImage(dh->all_data.at(3));
-    dh->saveAreaImage(dh->all_data.at(53));
-    //dh->saveHistImage(dh->all_data.at(53));//->histogram, "./../gabor/hist.jpg")
+    //dh->saveGaborImages(dh->all_data.at(53));
+    //dh->saveAreaImage(dh->all_data.at(3));
+    //dh->saveAreaImage(dh->all_data.at(53));
 
     int set = 70;  //ratio 1:n-1
     int cycles = 20;
@@ -58,20 +57,18 @@ int main(){
         cout<<"Training files:"<<dh->training_set.size()<<endl;
         cout<<"Testing files:"<<dh->testing_set.size()<<endl;
 
-        //break;
         int ok = 0, ok_h = 0, ok_e = 0, ok_xor = 0, ok_hist = 0;
 
         gh->fill(dh->training_set);
-        //gh->trainAllVsAll();
-        double percent_h, percent_xor, percent_e, percent_hist;
+
+        double percent_e, percent_hist;
         int file_cnt = 1;
         int testing = dh->testing_set.size();
 
         for(auto t : dh->testing_set){
-            //ok_xor += gh->fitXOR(t);
-            //ok_h += gh->fitHD(t);
-            //int l = gh->fitED(t);
-            int l = gh->fitEDdist(t);
+
+            //int l = gh->fitED(t); //L2 distance for approximated local power
+            int l = gh->fitDist(t); //normalized abs. distance for mean and std features
             if(l == 0){
                 wrong.push_back(t);
             }
@@ -81,14 +78,7 @@ int main(){
             ok_e += l;
             cout<<"\nFILE: "<<file_cnt<<"/"<<testing<<endl;
             cout<<"\nCORRECT: "<<ok_e<<"/"<<testing<<endl;
-            //cout<<"\nCORRECT: "<<ok_e<<"/"<<testing<<endl;
-            /*
-            percent_xor = (((double)ok_xor/(double)testing)*100);
-            cout<<"PERCENTAGE (XOR): "<<percent_xor<<" %"<<endl;
 
-            percent_h = (((double)ok_h/(double)testing)*100);
-            cout<<"PERCENTAGE (HD): "<<percent_h<<" %"<<endl;
-            */
             percent_e = (((double)ok_e/(double)testing)*100);
             cout<<"PERCENTAGE (ED): "<<percent_e<<" %"<<endl;
             file_cnt++;
@@ -120,21 +110,9 @@ int main(){
     }
 
     cout<<"RESULTS: "<<endl;
-    double all = 0, all_xor = 0, all_e = 0, all_hist=0;
+    double all_e = 0, all_hist=0;
     double std = 0;
-    /*
-    for(auto res: results){
-        cout<<"HD "<<res<<" %"<<endl;
-        all+=res;
-    }
-    double avg = all/(double)cycles;
 
-
-    for(auto res: res_xor){
-        cout<<"XOR "<<res<<" %"<<endl;
-        all_xor+=res;
-    }
-    */
 
     for(auto res: res_hist){
         cout<<"HIST "<<res<<" %"<<endl;

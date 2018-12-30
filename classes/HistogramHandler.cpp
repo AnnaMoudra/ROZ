@@ -4,45 +4,18 @@ using namespace cv;
 using namespace std;
 
 
-class FeatureHandler{
+class HistogramHandler{
 
 public:
     Image * img1;
     Image * img2;
     vector<pair<float, Image *>> histIntersections;
 
-    FeatureHandler(){}
+    HistogramHandler(){}
 
     void SetImgs(Image * i, Image * b){
         this->img1 = i;
         this->img2 = b;
-    }
-
-    //unused
-    void testSet(){
-        // Match features.
-        std::vector<cv::DMatch> matches;
-        matchFeatures(img1->descriptors, img2->descriptors, matches);
-        // Draw matches.
-        Mat image_matches;
-        drawMatches(img1->img, img1->keypoints, img2->img, img2->keypoints, matches, image_matches);
-
-        namedWindow("Image Window", cv::WINDOW_AUTOSIZE);
-        imshow("Image Window", image_matches);
-        waitKey(0);
-    }
-
-    #define RATIO    0.75
-    void matchFeatures(const cv::Mat &query, const cv::Mat &target, std::vector<cv::DMatch> &goodMatches) {
-        std::vector<std::vector<cv::DMatch>> matches;
-        FlannBasedMatcher matcher = cv::FlannBasedMatcher(cv::makePtr<cv::flann::LshIndexParams>(12, 20, 2));;
-        // Find 2 best matches for each descriptor to make later the second neighbor test.
-        matcher.knnMatch(query, target, matches, 2);
-        // Second neighbor ratio test.
-        for (unsigned int i = 0; i < matches.size(); ++i) {
-            if (matches[i][0].distance < matches[i][1].distance * RATIO)
-                goodMatches.push_back(matches[i][0]);
-        }
     }
 
 

@@ -61,7 +61,7 @@ public:
         Rect myROI(250, 10, 100, 70);
         vector<Rect> ars;
 
-        int max = 28; //28
+        int max = 28;
         int half = max/2;
         int width = 30;
         int height = 35;
@@ -112,10 +112,6 @@ public:
         // Wait for a keystroke in the window
     }
 
-    void imgToLAB(){
-        cvtColor(this->img, this->img, CV_BGR2Lab);
-    }
-
 
     void extractChannels(Mat im){
         //cout<<im.channels()<<endl;
@@ -126,11 +122,10 @@ public:
 
     }
 
-    //todo EXTRACT ALL
+    //extracting local energy features
     void extractGaborFeatures(){
         vector<int> loc_energy;
         vector<double> doubleFeatures;
-
 
         for(int k=0; k < this->gabor.size(); k = k+2){
 
@@ -139,38 +134,32 @@ public:
             g2 = this->gabor.at(k+1);
             int sum1 = 0;
             int sum2 = 0;
-            int sigma1 = 0;
-            int sigma2 = 0;
             Scalar mean1, mean2, stddev1, stddev2;
 
             for(int i=0; i<g1.rows; i++) {
                 for (int j = 0; j < g1.cols; j++) {
-
                     int pixel1 = g1.at<uchar>(i, j);
                     int pixel2 = g2.at<uchar>(i, j);
-                     //toto funguje cca o 3 % hure nez pouhy soucet ctvercu kazdeho pixelu
+                    //(sym + antisym cast )toto funguje cca o 3 % hure nez pouhy soucet ctvercu kazdeho pixelu
                     //sum += sqrt(pixel1 + pixel2);
                     sum1 += pixel1*pixel1;
                     sum2 += pixel2*pixel2;
-
                 }
             }
-            meanStdDev( g1, mean1, stddev1 );
-            meanStdDev( g2, mean2, stddev2 );
+
             //loc_energy.push_back(sum);
             loc_energy.push_back(sum1);
             loc_energy.push_back(sum2);
 
+            meanStdDev( g1, mean1, stddev1 );
+            meanStdDev( g2, mean2, stddev2 );
             doubleFeatures.push_back((double)mean1[0]);
             doubleFeatures.push_back((double)stddev1[0]);
             doubleFeatures.push_back((double)mean2[0]);
             doubleFeatures.push_back((double)stddev2[0]);
         }
-        //vector<int> all;
-        //all.reserve( loc_energy.size());
-        //all.insert( all.end(), loc_energy.begin(), loc_energy.end() );
 
-        //return ft vector back ti Image
+        //return ft vector back to Image
         this->gaborFeatures = loc_energy;
         this->gaborFeaturesD = doubleFeatures;
     }
@@ -233,29 +222,30 @@ public:
                 //psi is the phase offset. (cos: psi=0, sin: psi=pi/2)
                 //real part, symmetric part
                 Mat gaborKernelCos = getGaborKernel(cv::Size(size, size), sigma, theta, lambda, gamma, 0);
-                //imaginary part
+                //imaginary part, antisymetric part
                 Mat gaborKernelSin = getGaborKernel(cv::Size(size, size), sigma, theta, lambda, gamma, M_PI/2.0);
 
 
                 Mat sin_response, cos_response, temp, image_out;
                 filter2D(outAsFloat,sin_response, CV_32F, gaborKernelSin, cv::Point(-1,-1));
                 filter2D(outAsFloat,cos_response, CV_32F, gaborKernelCos, cv::Point(-1,-1));
-                //calculate Energy
+
+                //calculate Energy - unused here, values are multiplied in extraction
                 //multiply(sin_response, sin_response, sin_response);
                 //multiply(cos_response, cos_response, cos_response);
 
                 //get max min to convert back to 0-255 pixel range
                 double xmin[4], xmax[4];
-                //minMaxIdx(gaborOut, xmin, xmax);
+
                 minMaxIdx(sin_response, xmin, xmax);
                 minMaxIdx(cos_response, xmin, xmax);
+
                 //pixels in range 0-255
                 sin_response.convertTo(gaborImageSin, CV_8U, 255.0 / (xmax[0] - xmin[0]),-255 * xmin[0] / (xmax[0] - xmin[0]));
                 cos_response.convertTo(gaborImageCos, CV_8U, 255.0 / (xmax[0] - xmin[0]),-255 * xmin[0] / (xmax[0] - xmin[0]));
 
-
                 this->gabor.push_back(gaborImageSin);
-                this->gabor.push_back(gaborImageCos); //real part
+                this->gabor.push_back(gaborImageCos);
             }
         }
     }
