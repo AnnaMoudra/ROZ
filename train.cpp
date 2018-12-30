@@ -46,7 +46,7 @@ int main(){
     dh->saveAreaImage(dh->all_data.at(53));
     //dh->saveHistImage(dh->all_data.at(53));//->histogram, "./../gabor/hist.jpg")
 
-    int set = 0;  //ratio 1:n-1
+    int set = 70;  //ratio 1:n-1
     int cycles = 20;
     int k = 0;
     vector<double> results, res_xor, res_e, res_hist;
@@ -70,7 +70,8 @@ int main(){
         for(auto t : dh->testing_set){
             //ok_xor += gh->fitXOR(t);
             //ok_h += gh->fitHD(t);
-            int l = gh->fitED(t);
+            //int l = gh->fitED(t);
+            int l = gh->fitEDdist(t);
             if(l == 0){
                 wrong.push_back(t);
             }

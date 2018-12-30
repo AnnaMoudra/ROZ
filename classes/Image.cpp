@@ -34,6 +34,7 @@ public:
     vector<Mat> gabor;
     //extracted gabor feature vector
     vector<int> gaborFeatures;
+    vector<double> gaborFeaturesD;
 
     Image(string fn){
         this->filename = fn.c_str();
@@ -68,11 +69,11 @@ public:
 
         for(int i = 1; i <= max; i++){
             if(i <= half ){
-                Rect rec(w_offset + ((i-1)*width), 50, width, height);
+                Rect rec(w_offset + ((i-1)*width), 0, width, height);
                 ars.push_back(rec);
             }
             else{
-                Rect rec2(w_offset + (((i-half)-1)*width), 50 + height, width, height);
+                Rect rec2(w_offset + (((i-half)-1)*width), 0 + height, width, height);
                 ars.push_back(rec2);
             }
         }
@@ -128,44 +129,50 @@ public:
     //todo EXTRACT ALL
     void extractGaborFeatures(){
         vector<int> loc_energy;
-        //vector<int> mean_amplitude;
-        for(auto g : this->gabor){
-            //where g is one Gabor-filtered image (img->img)
-            // g is a response matrice - My image convolved with Gabor feature (gabor filter)
-            // feature vector: Local Energy,Mean Amplitude,Phase Amlitude or Orientation whose local has maximumEnergy
+        vector<double> doubleFeatures;
 
-            //Local Energy = summing up the squared value of each pixel value from a response matrix
-            int sum = 0;
-            for(int i=0; i<g.rows; i++) {
-                for (int j = 0; j < g.cols; j++) {
-                    int pixel = g.at<uchar>(i, j);
-                    //int pixel_p2 = pixel * pixel;
-                    //responses are already squared
-                    sum += pixel;
+
+        for(int k=0; k < this->gabor.size(); k = k+2){
+
+            Mat g1, g2;
+            g1 = this->gabor.at(k);
+            g2 = this->gabor.at(k+1);
+            int sum1 = 0;
+            int sum2 = 0;
+            int sigma1 = 0;
+            int sigma2 = 0;
+            Scalar mean1, mean2, stddev1, stddev2;
+
+            for(int i=0; i<g1.rows; i++) {
+                for (int j = 0; j < g1.cols; j++) {
+
+                    int pixel1 = g1.at<uchar>(i, j);
+                    int pixel2 = g2.at<uchar>(i, j);
+                     //toto funguje cca o 3 % hure nez pouhy soucet ctvercu kazdeho pixelu
+                    //sum += sqrt(pixel1 + pixel2);
+                    sum1 += pixel1*pixel1;
+                    sum2 += pixel2*pixel2;
+
                 }
             }
-            loc_energy.push_back(sum);
-            /*
-            //Mean Amplitude = sum of absolute values of each matrix value from a response matrix
-            sum  = 0;
-            for(int i=0; i<g.rows; i++) {
-                for (int j = 0; j < g.cols; j++) {
-                    int pixel = g.at<uchar>(i, j);
-                    int pixel_abs = abs(pixel);
-                    sum += pixel;
-                }
-            }
-            mean_amplitude.push_back(sum);
-            */
+            meanStdDev( g1, mean1, stddev1 );
+            meanStdDev( g2, mean2, stddev2 );
+            //loc_energy.push_back(sum);
+            loc_energy.push_back(sum1);
+            loc_energy.push_back(sum2);
+
+            doubleFeatures.push_back((double)mean1[0]);
+            doubleFeatures.push_back((double)stddev1[0]);
+            doubleFeatures.push_back((double)mean2[0]);
+            doubleFeatures.push_back((double)stddev2[0]);
         }
-        vector<int> all;
-        // preallocate memory
-        all.reserve( loc_energy.size() ); //+ mean_amplitude.size() );
-        all.insert( all.end(), loc_energy.begin(), loc_energy.end() );
-        //all.insert( all.end(), mean_amplitude.begin(), mean_amplitude.end() );
+        //vector<int> all;
+        //all.reserve( loc_energy.size());
+        //all.insert( all.end(), loc_energy.begin(), loc_energy.end() );
 
         //return ft vector back ti Image
-        this->gaborFeatures = all;
+        this->gaborFeatures = loc_energy;
+        this->gaborFeaturesD = doubleFeatures;
     }
 
     void extractHistogram(){
@@ -214,17 +221,17 @@ public:
                 Mat gaborImage, gaborImageSin, gaborImageCos;
                 //kernel size and sigma (in ~N(mi, sigma))
                 //scale for window 30x35
-                int size = 14;
-                int sigma = 7;
-                //theta: angle of rotation
-                double theta = i;
                 //lambda - wavelength in sin fact of theta,
                 double lambda = j;
+                int size = 14;
+                int sigma = 0.56*lambda;
+                //theta: angle of rotation
+                double theta = i;
                 //gamma is the spatial aspect ratio.
-                double gamma = 1;
+                double gamma = 0.5;
 
                 //psi is the phase offset. (cos: psi=0, sin: psi=pi/2)
-                //real part
+                //real part, symmetric part
                 Mat gaborKernelCos = getGaborKernel(cv::Size(size, size), sigma, theta, lambda, gamma, 0);
                 //imaginary part
                 Mat gaborKernelSin = getGaborKernel(cv::Size(size, size), sigma, theta, lambda, gamma, M_PI/2.0);
@@ -234,8 +241,9 @@ public:
                 filter2D(outAsFloat,sin_response, CV_32F, gaborKernelSin, cv::Point(-1,-1));
                 filter2D(outAsFloat,cos_response, CV_32F, gaborKernelCos, cv::Point(-1,-1));
                 //calculate Energy
-                multiply(sin_response, sin_response, sin_response);
-                multiply(cos_response, cos_response, cos_response);
+                //multiply(sin_response, sin_response, sin_response);
+                //multiply(cos_response, cos_response, cos_response);
+
                 //get max min to convert back to 0-255 pixel range
                 double xmin[4], xmax[4];
                 //minMaxIdx(gaborOut, xmin, xmax);
