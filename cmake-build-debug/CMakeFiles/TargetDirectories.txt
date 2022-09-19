@@ -1,3 +1,0 @@
-C:/Users/Anna/Documents/ROZ/SRC/cmake-build-debug/CMakeFiles/miroz.dir
-C:/Users/Anna/Documents/ROZ/SRC/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Anna/Documents/ROZ/SRC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
