@@ -1,10 +1,5 @@
-// in build: cmake --build . --config Release
-// in SRC: .\build\Release\miroz.exe
-
 #include "classes/DataHandler.cpp"
 #include <opencv2/opencv.hpp>
-
-//testing 5
 using namespace std;
 
 //return 0/1
@@ -29,7 +24,6 @@ int simpleHistogram(vector<Image *> data, Image * test){
 }
 
 int main(){
-    //string path = "./../test_5";
     string pathGabor = "./../gabor/";
     string pathWrong = "./../wrong/";
     string pathRight = "./../right/";
@@ -88,8 +82,6 @@ int main(){
             percent_hist = (((double)ok_hist/(double)testing)*100);
             cout<<"PERCENTAGE (HIST): "<<percent_hist<<" %"<<endl;
         }
-        //results.push_back(percent_h);
-        //res_xor.push_back(percent_xor);
         res_e.push_back(percent_e);
         res_hist.push_back(percent_hist);
         dh->clearSets();
